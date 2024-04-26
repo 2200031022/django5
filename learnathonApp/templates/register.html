@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Page</title>
+<style>
+    /* CSS for box layout */
+    #registrationContainer {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        width: 300px; /* Adjust width as needed */
+        margin: 0 auto; /* Center the box horizontally */
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input {
+        width: calc(100% - 10px); /* Adjust width as needed */
+        margin-bottom: 10px;
+    }
+    button {
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+
+<div id="registrationContainer">
+    <h2>Register</h2>
+    <!-- Registration form -->
+    <form id="registrationForm" action="register.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<div id="registrationSuccess" style="display: none;">
+    <p>Successfully registered!</p>
+    <!-- You can add additional content or redirection links here -->
+</div>
+
+<script>
+    // JavaScript to handle registration success and validation
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Perform registration process here, for demonstration purpose just showing success message
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        // Validation checks
+        if (!username.includes('@')) {
+            alert("Username should contain '@' symbol.");
+            return;
+        }
+        if (!email.endsWith('@gmail.com') && !email.endsWith('@example.in')) {
+            alert("Email address should end with '@gmail.com' or '@example.in'.");
+            return;
+        }
+        if (!/^\d{8}$/.test(password)) {
+            alert("Password should contain only 8 digits.");
+            return;
+        }
+
+        // If all validations pass, show success message
+        document.getElementById("registrationContainer").style.display = "none";
+        document.getElementById("registrationSuccess").style.display = "block";
+    });
+</script>
+
+</body>
+</html>

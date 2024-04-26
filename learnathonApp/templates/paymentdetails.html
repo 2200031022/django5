@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Details</title>
+<style>
+    /* Basic CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .payment-option {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .error {
+        color: red;
+    }
+
+    /* Additional style for the feedback button */
+    #feedbackButton {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Payment Details</h2>
+    <form id="paymentForm" action="/amount.html/" method="post" onsubmit="return handlePayment()">
+        {% csrf_token %}
+        <div class="payment-option">
+            <input type="radio" id="card" name="paymentMethod" value="card">
+            <label for="card">Credit/Debit Card</label>
+            <div id="cardDetails" style="display: none;">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter card number">
+                <span id="cardNumberError" class="error"></span>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YYYY">
+                <span id="expiryDateError" class="error"></span>
+                <label for="cvc">CVC:</label>
+                <input type="password" id="cvc" name="cvc" placeholder="Enter CVC">
+                <span id="cvcError" class="error"></span>
+            </div>
+        </div>
+        <div class="payment-option">
+            <input type="radio" id="upi" name="paymentMethod" value="upi">
+            <label for="upi">UPI</label>
+            <div id="upiDetails" style="display: none;">
+                <select id="upiProvider" name="upiProvider">
+                    <option value="googlepay">Google Pay</option>
+                    <option value="phonepe">PhonePe</option>
+                    <option value="paytm">Paytm</option>
+                </select>
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter Phone number">
+                <span id="phoneNumberError" class="error"></span>
+                <label for="UPIID">UPI ID:</label>
+                <input type="text" id="UPIID" name="UPIID" placeholder="Enter UPI ID">
+                <span id="upiIDError" class="error"></span>
+            </div>
+        </div>
+        <input type="submit" value="Proceed to Pay">
+    </form>
+    <!-- Feedback button -->
+    <button id="feedbackButton" onclick="openFeedback()">Give Feedback</button>
+</div>
+
+<script>
+    // JavaScript to handle showing/hiding payment options based on selection
+    const cardOption = document.getElementById('card');
+    const cardDetails = document.getElementById('cardDetails');
+    const upiOption = document.getElementById('upi');
+    const upiDetails = document.getElementById('upiDetails');
+
+    cardOption.addEventListener('change', function() {
+        if (this.checked) {
+            cardDetails.style.display = 'block';
+            upiDetails.style.display = 'none';
+        }
+    });
+
+    upiOption.addEventListener('change', function() {
+        if (this.checked) {
+            upiDetails.style.display = 'block';
+            cardDetails.style.display = 'none';
+        }
+    });
+
+    function handlePayment() {
+        var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        if (!paymentMethod) {
+            alert("Please select a payment method.");
+            return false;
+        }
+
+        var paymentMethodValue = paymentMethod.value;
+        if (paymentMethodValue === 'card') {
+            var cardNumber = document.getElementById('cardNumber').value;
+            var expiryDate = document.getElementById('expiryDate').value;
+            var cvc = document.getElementById('cvc').value;
+            var cardNumberError = document.getElementById('cardNumberError');
+            var expiryDateError = document.getElementById('expiryDateError');
+            var cvcError = document.getElementById('cvcError');
+
+            // Resetting previous errors
+            cardNumberError.textContent = "";
+            expiryDateError.textContent = "";
+            cvcError.textContent = "";
+
+            // Validation
+            if (!/^\d{10}$/.test(cardNumber)) {
+                cardNumberError.textContent = "Card number must contain 10 digits";
+                return false; // Prevent form submission
+            }
+
+            if (!/^(0[5-9]|1[0-2])\/202[4-9]$/.test(expiryDate)) {
+                expiryDateError.textContent = "Expiry date must be after 04/2024 and in the format MM/YYYY";
+                return false; // Prevent form submission
+            }
+
+            if (!/^\d{3,4}$/.test(cvc)) {
+                cvcError.textContent = "CVC must contain 3 or 4 digits";
+                return false; // Prevent form submission
+            }
+        } else if (paymentMethodValue === 'upi') {
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var upiID = document.getElementById('UPIID').value;
+            var phoneNumberError = document.getElementById('phoneNumberError');
+            var upiIDError = document.getElementById('upiIDError');
+
+            // Resetting previous errors
+            phoneNumberError.textContent = "";
+            upiIDError.textContent = "";
+
+            // Validation
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                phoneNumberError.textContent = "Phone number must contain 10 digits";
+                return false; // Prevent form submission
+            }
+
+            if (!upiID.trim()) {
+                upiIDError.textContent = "UPI ID is required";
+                return false; // Prevent form submission
+            }
+        }
+        // Proceed with other payment methods
+        return true;
+    }
+
+    // Function to open feedback.html
+    function openFeedback() {
+        window.location.href = 'feedback.html';
+    }
+</script>
+
+</body>
+</html>

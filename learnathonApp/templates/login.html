@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body style="background-color: #f8f9fa; font-family: Arial, sans-serif; color: #333;">
+    <h2 style="text-align: center; margin-top: 20px;">Login</h2>
+    <form id="loginForm" style="max-width: 300px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="font-weight: bold;">Username:</label>
+            <input type="email" id="username" name="username" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="password" style="font-weight: bold;">Password:</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+        <div>
+            <button type="button" id="forgotPasswordBtn" style="padding: 8px 20px; border: none; border-radius: 5px; background-color: #6c757d; color: #fff; cursor: pointer;">Forgot Password?</button>
+            <button type="button" id="loginBtn" style="padding: 8px 20px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">Login</button>
+            <button type="button" id="clearBtn" style="padding: 8px 20px; border: none; border-radius: 5px; background-color: #dc3545; color: #fff; cursor: pointer;">Clear</button>
+        </div>
+    </form>
+
+    <div id="forgotPasswordSection" style="display: none; max-width: 300px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h3 style="text-align: center; margin-bottom: 15px;">Forgot Password</h3>
+        <form id="forgotPasswordForm">
+            <div style="margin-bottom: 15px;">
+                <label for="forgotUsername" style="font-weight: bold;">Username:</label>
+                <input type="text" id="forgotUsername" name="forgotUsername" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="email" style="font-weight: bold;">Email Address:</label>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="otp" style="font-weight: bold;">OTP:</label>
+                <input type="text" id="otp" name="otp" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+                <button type="button" id="resendOtpBtn" style="padding: 8px 20px; border: none; border-radius: 5px; background-color: #6c757d; color: #fff; cursor: pointer;">Resend OTP</button>
+            </div>
+            <div>
+                <button type="button" id="generatePasswordBtn" style="padding: 8px 20px; border: none; border-radius: 5px; background-color: #28a745; color: #fff; cursor: pointer;">Generate Password</button>
+            </div>
+            <div id="passwordDisplay" style="margin-top: 10px; display: none;">
+                <label for="generatedPassword" style="font-weight: bold;">Generated Password:</label>
+                <span id="generatedPassword"></span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('forgotPasswordSection').style.display = 'block';
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            // Validate email and password
+            var email = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (email && email.includes('@') && password && password.length === 8) {
+                // Perform login logic here
+                window.location.href = 'home.html'; // Redirect to home page
+            } else {
+                alert('Invalid email or password. Please make sure email address is entered and password contains 8 digits.');
+            }
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        });
+
+        document.getElementById('generatePasswordBtn').addEventListener('click', function() {
+            // Check if all fields are filled
+            var email = document.getElementById('email').value;
+            var username = document.getElementById('forgotUsername').value;
+            var otp = document.getElementById('otp').value;
+
+            if (email && username && otp) {
+                // Perform password generation logic here
+                var generatedPassword = generatePassword(); // Generate the password
+                document.getElementById('generatedPassword').innerText = generatedPassword;
+                document.getElementById('passwordDisplay').style.display = 'block';
+            } else {
+                alert('Please fill in all fields (Email, Username, OTP) before generating the password.');
+            }
+        });
+
+        function generatePassword() {
+            // This function generates a random 8-character password
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var password = '';
+            for (var i = 0; i < 8; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return password;
+        }
+
+        document.getElementById('resendOtpBtn').addEventListener('click', function() {
+            // Perform OTP resend logic here
+            alert('OTP resent successfully!');
+        });
+    </script>
+</body>
+</html>

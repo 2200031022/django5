@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback Form</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .feedback-section {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #007bff; /* Title color */
+        margin-bottom: 20px;
+    }
+
+    form {
+        text-align: center;
+    }
+
+    ol {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 30px;
+        background-color: #f9f9f9; /* Different background color for questions */
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+        color: #555; /* Color for questions */
+    }
+
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .feedback-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .feedback-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .success-message {
+        text-align: center;
+        color: #009900; /* Success message color */
+        margin-top: 20px;
+        display: none; /* Initially hide the success message */
+    }
+</style>
+</head>
+<body>
+
+<div class="feedback-section">
+    <h2>Feedback Form</h2>
+    <form id="feedbackForm" action="submitfeedback.html" method="post">
+        <ol>
+            <li>
+                <label for="q1">How satisfied are you with our website's user interface?</label><br>
+                <input type="radio" id="q1" name="q1" value="Very satisfied"> Very satisfied
+                <input type="radio" id="q1" name="q1" value="Satisfied"> Satisfied
+                <input type="radio" id="q1" name="q1" value="Neutral"> Neutral
+                <input type="radio" id="q1" name="q1" value="Dissatisfied"> Dissatisfied
+                <input type="radio" id="q1" name="q1" value="Very dissatisfied"> Very dissatisfied
+            </li>
+            <!-- Add more questions here -->
+            <li>
+                <label for="q2">How likely are you to recommend our website to others?</label><br>
+                <input type="radio" id="q2" name="q2" value="Very likely"> Very likely
+                <input type="radio" id="q2" name="q2" value="Likely"> Likely
+                <input type="radio" id="q2" name="q2" value="Neutral"> Neutral
+                <input type="radio" id="q2" name="q2" value="Unlikely"> Unlikely
+                <input type="radio" id="q2" name="q2" value="Very unlikely"> Very unlikely
+            </li>
+            <li>
+                <label for="q3">How would you rate the variety of products available on our website?</label><br>
+                <input type="radio" id="q3" name="q3" value="Excellent"> Excellent
+                <input type="radio" id="q3" name="q3" value="Very good"> Very good
+                <input type="radio" id="q3" name="q3" value="Good"> Good
+                <input type="radio" id="q3" name="q3" value="Fair"> Fair
+                <input type="radio" id="q3" name="q3" value="Poor"> Poor
+            </li>
+            <li>
+                <label for="q4">How easy was it to find the products you were looking for?</label><br>
+                <input type="radio" id="q4" name="q4" value="Very easy"> Very easy
+                <input type="radio" id="q4" name="q4" value="Easy"> Easy
+                <input type="radio" id="q4" name="q4" value="Neutral"> Neutral
+                <input type="radio" id="q4" name="q4" value="Difficult"> Difficult
+                <input type="radio" id="q4" name="q4" value="Very difficult"> Very difficult
+            </li>
+            <li>
+                <label for="q5">How satisfied are you with the prices of the products?</label><br>
+                <input type="radio" id="q5" name="q5" value="Very satisfied"> Very satisfied
+                <input type="radio" id="q5" name="q5" value="Satisfied"> Satisfied
+                <input type="radio" id="q5" name="q5" value="Neutral"> Neutral
+                <input type="radio" id="q5" name="q5" value="Dissatisfied"> Dissatisfied
+                <input type="radio" id="q5" name="q5" value="Very dissatisfied"> Very dissatisfied
+            </li>
+            <li>
+                <label for="q6">How would you rate the quality of the products you purchased?</label><br>
+                <input type="radio" id="q6" name="q6" value="Excellent"> Excellent
+                <input type="radio" id="q6" name="q6" value="Very good"> Very good
+                <input type="radio" id="q6" name="q6" value="Good"> Good
+                <input type="radio" id="q6" name="q6" value="Fair"> Fair
+                <input type="radio" id="q6" name="q6" value="Poor"> Poor
+            </li>
+            <li>
+                <label for="q7">How satisfied are you with the delivery time of your orders?</label><br>
+                <input type="radio" id="q7" name="q7" value="Very satisfied"> Very satisfied
+                <input type="radio" id="q7" name="q7" value="Satisfied"> Satisfied
+                <input type="radio" id="q7" name="q7" value="Neutral"> Neutral
+                <input type="radio" id="q7" name="q7" value="Dissatisfied"> Dissatisfied
+                <input type="radio" id="q7" name="q7" value="Very dissatisfied"> Very dissatisfied
+            </li>
+            <li>
+                <label for="q8">How likely are you to make another purchase from our website?</label><br>
+                <input type="radio" id="q8" name="q8" value="Very likely"> Very likely
+                <input type="radio" id="q8" name="q8" value="Likely"> Likely
+                <input type="radio" id="q8" name="q8" value="Neutral"> Neutral
+                <input type="radio" id="q8" name="q8" value="Unlikely"> Unlikely
+                <input type="radio" id="q8" name="q8" value="Very unlikely"> Very unlikely
+            </li>
+            <li>
+                <label for="q9">How likely are you to recommend our website to others?</label><br>
+                <input type="radio" id="q9" name="q9" value="Very likely"> Very likely
+                <input type="radio" id="q9" name="q9" value="Likely"> Likely
+                <input type="radio" id="q9" name="q9" value="Neutral"> Neutral
+                <input type="radio" id="q9" name="q9" value="Unlikely"> Unlikely
+                <input type="radio" id="q9" name="q9" value="Very unlikely"> Very unlikely
+            </li>
+            <li>
+                <label for="q10">How satisfied are you with our customer service?</label><br>
+                <input type="radio" id="q10" name="q10" value="Very satisfied"> Very satisfied
+                <input type="radio" id="q10" name="q10" value="Satisfied"> Satisfied
+                <input type="radio" id="q10" name="q10" value="Neutral"> Neutral
+                <input type="radio" id="q10" name="q10" value="Dissatisfied"> Dissatisfied
+                <input type="radio" id="q10" name="q10" value="Very dissatisfied"> Very dissatisfied
+            </li>
+            <!-- Add more questions here -->
+        </ol>
+        <button type="submit" class="feedback-btn">Submit</button>
+    </form>
+    <div class="success-message">Feedback submitted successfully</div>
+</div>
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        var form = event.target;
+        var allAnswered = true;
+
+        // Check if at least one radio button is checked
+        form.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+            if (radio.checked) {
+                // Change form action to submitfeedback.html
+                form.action = "submitfeedback.html";
+            }
+        });
+
+        // Check if textarea is filled
+        var textarea = form.querySelector('textarea');
+        if (textarea && textarea.value.trim() === '') {
+            allAnswered = false;
+        }
+
+        if (allAnswered) {
+            // Show success message
+            document.querySelector('.success-message').style.display = 'block';
+            // Hide form after submission
+            form.style.display = 'none';
+            // Reset the form after a delay (optional)
+            setTimeout(function() {
+                form.reset();
+                document.querySelector('.success-message').style.display = 'none';
+                form.style.display = 'block';
+            }, 3000); // Adjust the delay as needed (in milliseconds)
+        } else {
+            // Check if any question is not answered
+            alert("Please answer all questions before submitting.");
+        }
+    });
+</script>
+</body>
+</html>

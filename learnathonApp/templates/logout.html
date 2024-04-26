@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logout Page</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    #logoutContainer {
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    #logoutContainer h2 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    #logoutContainer p {
+        margin-bottom: 20px;
+        color: #666;
+    }
+
+    #logoutContainer button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    #logoutContainer button:hover {
+        background-color: #0056b3;
+    }
+
+    #logoutMessage {
+        display: none;
+        color: green;
+    }
+</style>
+</head>
+<body>
+
+<script>
+    // JavaScript to handle logout
+    function logout() {
+        // Clear session or token information here
+        // For demonstration, let's just show a confirmation message
+        document.getElementById("logoutContainer").innerHTML = `
+            <h2>You logged out</h2>
+        `;
+    }
+</script>
+
+<div id="logoutContainer">
+    <h2>Logout</h2>
+    <p>Are you sure you want to logout?</p>
+    <button onclick="logout()">Logout</button>
+</div>
+
+</body>
+</html>

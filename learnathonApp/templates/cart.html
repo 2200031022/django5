@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Custom Styles */
+        .cart-item {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .cart-item h2 {
+            margin-bottom: 20px;
+        }
+        .cart-item p {
+            margin-bottom: 10px;
+        }
+        .btn-checkout {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-checkout:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutus.html">About Us</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Items -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cart-item">
+                    <h2>Item 1</h2>
+                    <p><strong>Name:</strong> Sample Item 1</p>
+                    <p><strong>Details:</strong> This is a sample item description.</p>
+                    <p><strong>Price:</strong> $10.00</p>
+                    <button class="btn btn-primary btn-checkout" onclick="proceedToPayment('Sample Item 1', 10.00)">Buy Item 1</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="cart-item">
+                    <h2>Item 2</h2>
+                    <p><strong>Name:</strong> Sample Item 2</p>
+                    <p><strong>Details:</strong> This is another sample item description.</p>
+                    <p><strong>Price:</strong> $15.00</p>
+                    <button class="btn btn-primary btn-checkout" onclick="proceedToPayment('Sample Item 2', 15.00)">Buy Item 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for Proceeding to Payment -->
+    <script>
+        function proceedToPayment(itemName, itemPrice) {
+            // Store selected item details in session storage
+            sessionStorage.setItem('itemName', itemName);
+            sessionStorage.setItem('itemPrice', itemPrice);
+            // Redirect to the checkout page
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>

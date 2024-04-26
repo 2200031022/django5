@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Management System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    /* Custom Styles */
+    .course-card {
+      margin-bottom: 20px;
+    }
+    .course-details {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="home.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="Dashboard.html"><b>Dashboard</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="aboutus.html">About Us</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Course Viewing Section -->
+  <div class="container mt-5">
+    <h2>Availables</h2>
+    <div class="row" id="courseContainer">
+      <!-- Course cards will be dynamically added here -->
+    </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Initial courses data
+      var courses = [
+        {
+          id: 'course-1',
+          type: 'cotton',
+          html: `
+            <div class="col-md-4">
+              <div class="card course-card">
+                <img src="{% static 'shop1.jpeg'%}"class="card-img-top" alt="Shop 1 Image">
+                <div class="card-body">
+                  <h5 class="card-title">shop 1</h5>
+                  <p class="card-text">This is a sample course description.</p>
+                  <a href="#" class="btn btn-primary view-details" data-target="course-1">View Details</a>
+                  <button class="btn btn-success add-to-cart" data-item="Shop 1">Add to Cart</button>
+                  <div class="course-details" id="course-1">
+                    <!-- Course 1 Details -->
+                    <p><strong>type:</strong> cotton</p>
+                    <p><strong>size:</strong> S</p>
+                    <p><strong>price:</strong> 650</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: 'course-2',
+          type: 'rayon',
+          html: `
+            <div class="col-md-4">
+              <div class="card course-card">
+                <img src= "{% static 'shp2.jpeg'%}" class="card-img-top" alt="Shop 2 Image">
+                <div class="card-body">
+                  <h5 class="card-title">shop 2</h5>
+                  <p class="card-text">This is another sample course description.</p>
+                  <a href="#" class="btn btn-primary view-details" data-target="course-2">View Details</a>
+                  <button class="btn btn-success add-to-cart" data-item="Shop 2">Add to Cart</button>
+                  <div class="course-details" id="course-2">
+                    <!-- Course 2 Details -->
+                    <p><strong>type:</strong> rayon</p>
+                    <p><strong>size:</strong> M</p>
+                    <p><strong>price:</strong> 350</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: 'course-3',
+          type: 'silk',
+          html: `
+            <div class="col-md-4">
+              <div class="card course-card">
+                <img src="{% static 'shop3.jpeg'%}" class="card-img-top" alt="Shop 3 Image">
+                <div class="card-body">
+                  <h5 class="card-title">shop 3</h5>
+                  <p class="card-text">Yet another sample course description.</p>
+                  <a href="#" class="btn btn-primary view-details" data-target="course-3">View Details</a>
+                  <button class="btn btn-success add-to-cart" data-item="Shop 3">Add to Cart</button>
+                  <div class="course-details" id="course-3">
+                    <!-- Course 3 Details -->
+                    <p><strong>type:</strong> silk</p>
+                    <p><strong>size:</strong> XL</p>
+                    <p><strong>price:</strong> 500</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ];
+
+      // Populate initial courses
+      populateCourses(courses);
+
+      // Search functionality
+      $('#searchButton').click(function() {
+        var searchTerm = $('#searchInput').val().toLowerCase();
+        var filteredCourses = courses.filter(function(course) {
+          return course.type.toLowerCase().includes(searchTerm);
+        });
+        populateCourses(filteredCourses);
+      });
+
+      function populateCourses(courseList) {
+        var courseContainer = $('#courseContainer');
+        courseContainer.empty();
+        courseList.forEach(function(course) {
+          courseContainer.append(course.html);
+        });
+      }
+
+      $('.view-details').click(function() {
+        var target = $(this).data('target');
+        $('#' + target).toggle();
+      });
+
+      $('.add-to-cart').click(function() {
+        var item = $(this).data('item');
+        alert('Added ' + item + ' to cart'); // You can replace this alert with your preferred action
+        window.location.href = 'cart.html'; // Redirect to cart.html
+      });
+    });
+  </script>
+</body>
+</html>
